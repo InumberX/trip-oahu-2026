@@ -21,7 +21,7 @@ export default defineConfig({
     'import.meta.env.VITE_NO_INDEX': '""',
     'import.meta.env.VITE_SITE_URL': '"http://localhost:5173"',
     'import.meta.env.VITE_SITE_NAME': '"Trip Oahu 2026(test)"',
-    'import.meta.env.VITE_GOOGLE_ANALYTICS_ID': '""',
+    'import.meta.env.VITE_GOOGLE_ANALYTICS_ID': '"G-318FZ1QLCS"',
     'import.meta.env.VITE_CACHE_BUSTER': '"ver=test"',
     'import.meta.env.VITE_LASTMOD': '"2026-01-01T00:00:00+09:00"',
   },

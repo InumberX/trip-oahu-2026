@@ -123,28 +123,42 @@ minista の `HeadProvider` は `[value].flat()` で1段しか平坦化しない�
 ので、`hrefLang` ではなく小文字の `hreflang` を `createElement` で渡しています。
 どちらも `src/tests/layouts/index.test.tsx` が回帰を検出します。
 
-## sitemap.xml
-
-`plugins/sitemap.ts`（Vite プラグイン）がビルド後に `dist/sitemap.xml` を書き出します。
-全言語 × 全ページの URL に `xhtml:link` の hreflang と `x-default` を付けます。404 は含めません。
+## sitemap.xml / robots.txt
 
 minista はページを必ず `.html` として書き出し、HTML を `<!doctype html>` で包むため、
-`src/pages/sitemap.xml.tsx` のようなページとしては生成できません。そのためプラグイン方式です。
+`src/pages/sitemap.xml.tsx` のようなページとしては生成できません。どちらも Vite プラグインが
+ビルド後に書き出します。
 
-`plugins/sitemap.ts` が読む `src/config/langs.ts`・`src/config/pages.ts`・`src/utils/lang.ts` は
+- **`plugins/sitemap.ts`** → `dist/sitemap.xml`。全言語 × 全ページの URL に `xhtml:link` の
+  hreflang と `x-default` を付けます。404 は含めません。
+- **`plugins/robots.ts`** → `dist/robots.txt`。`NO_INDEX` が空なら `Allow: /` + `Sitemap:` を、
+  設定されていれば（dev）`Disallow: /` を出します。`SITE_URL` / `NO_INDEX` を参照するため
+  `public/` の静的ファイルにはできません。
+
+`plugins/` が読む `src/config/langs.ts`・`src/config/pages.ts`・`src/utils/lang.ts` は
 **`~/` エイリアスを使えません**（Vite の設定ローダーがベア指定子として外部化してしまう）。
 この3ファイルだけ相対インポートで書いています。
+
+## Google Analytics
+
+`src/layouts/index.tsx` の `createGoogleAnalyticsTags()` が gtag.js の読み込みと初期化の
+2タグを出力します。**計測IDが空文字なら1つも出しません。** ID は `minista.config.ts` の
+`define` でフォールバック値を持つため、`GOOGLE_ANALYTICS_ID` を渡さないローカルビルドでも
+そのプロパティに送信されます（sugidama と同じ方式）。
+
+`headTagToStr` が非空要素タグの `dangerouslySetInnerHTML` を innerHTML として扱うため、
+初期化スクリプトをインラインで埋め込めます。
 
 ## 環境変数
 
 ビルド時に `minista.config.ts` の `define` で埋め込まれます。実行時には読まれません。
 
-| 変数                  | 用途                                  |
-| --------------------- | ------------------------------------- |
-| `NO_INDEX`            | 値があれば `noindex, nofollow` を出力 |
-| `SITE_URL`            | canonical / OG URL                    |
-| `SITE_NAME`           | サイト名（title に使用）              |
-| `GOOGLE_ANALYTICS_ID` | GA 計測 ID                            |
+| 変数                  | 用途                                                              |
+| --------------------- | ----------------------------------------------------------------- |
+| `NO_INDEX`            | 値があれば `noindex, nofollow` と robots.txt の `Disallow: /` を出力 |
+| `SITE_URL`            | canonical / OG URL / sitemap の `loc`                             |
+| `SITE_NAME`           | サイト名（title に使用）                                          |
+| `GOOGLE_ANALYTICS_ID` | GA 計測ID（未指定時は固定値にフォールバック）                     |
 
 CI では GitHub Environment の Variables から注入されます。ローカルでビルドする場合は
 `.env.development.local` / `.env.production.local` に記述してください。

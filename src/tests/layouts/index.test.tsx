@@ -3,7 +3,7 @@ import { HeadContext } from 'minista/context'
 import { type ReactElement, isValidElement } from 'react'
 import { describe, expect, test } from 'vitest'
 
-import Layout from '~/layouts'
+import Layout, { createGoogleAnalyticsTags } from '~/layouts'
 
 // vitest.config.ts の define と揃えた値
 const SITE_URL = 'http://localhost:5173'
@@ -119,5 +119,54 @@ describe('Layout head tags', () => {
     const ogLocale = findByProp(tags, 'property', 'og:locale')
 
     expect(ogLocale[0]?.props.content).toBe('en')
+  })
+
+  // 計測IDは vitest.config.ts の define で与えている。ID未設定時に出力しないことは
+  // createGoogleAnalyticsTags の単体テスト側で担保する（define はビルド時に固定される
+  // ため、1回のテスト実行では両分岐を通せない）。
+  test('計測IDが設定されていれば GA タグを2つ出す', () => {
+    const tags = collectHeadTags(<Layout url='/' />)
+    const scripts = tags.filter((tag): tag is CollectedTag => {
+      return isElement(tag) && tag.type === 'script'
+    })
+
+    expect(scripts).toHaveLength(2)
+    expect(String(scripts[0]?.props.src)).toContain(
+      'googletagmanager.com/gtag/js?id=',
+    )
+  })
+})
+
+describe('createGoogleAnalyticsTags', () => {
+  test('計測IDが空なら何も返さない', () => {
+    expect(createGoogleAnalyticsTags('')).toEqual([])
+  })
+
+  test('gtag.js の読み込みと初期化の2タグを返す', () => {
+    const tags = createGoogleAnalyticsTags('G-TESTID123')
+
+    expect(tags).toHaveLength(2)
+    expect(tags[0]?.props).toMatchObject({
+      async: true,
+      src: 'https://www.googletagmanager.com/gtag/js?id=G-TESTID123',
+    })
+  })
+
+  test('初期化スクリプトは計測IDを config に渡す', () => {
+    const tags = createGoogleAnalyticsTags('G-TESTID123')
+    const props = tags[1]?.props as
+      | { dangerouslySetInnerHTML?: { __html?: string } }
+      | undefined
+    const html = props?.dangerouslySetInnerHTML?.__html ?? ''
+
+    expect(html).toContain("gtag('config', 'G-TESTID123')")
+    expect(html).toContain('window.dataLayer = window.dataLayer || []')
+  })
+
+  test('フラットな配列で返す（minista の head は1段しか平坦化しない）', () => {
+    for (const tag of createGoogleAnalyticsTags('G-TESTID123')) {
+      expect(Array.isArray(tag)).toBe(false)
+      expect(typeof tag.type).toBe('string')
+    }
   })
 })

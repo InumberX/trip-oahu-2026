@@ -3,7 +3,12 @@ import { createElement, type ReactElement, type ReactNode } from 'react'
 
 import { LayoutWrapper } from '~/components/ui/layouts/Wrapper'
 import { getSiteInfo } from '~/config/consts'
-import { CACHE_BUSTER, NO_INDEX, SITE_URL } from '~/config/env'
+import {
+  CACHE_BUSTER,
+  GOOGLE_ANALYTICS_ID,
+  NO_INDEX,
+  SITE_URL,
+} from '~/config/env'
 import { DEFAULT_LANG, LANGS } from '~/config/langs'
 import { type Metadata } from '~/types/metadata'
 import { getLangFromUrl, getLangRoute, stripLangFromUrl } from '~/utils/lang'
@@ -29,6 +34,36 @@ const createAlternateLink = (hreflang: string, href: string): ReactElement => {
     hreflang,
     href,
   })
+}
+
+// 計測IDが未設定の環境（ローカル・dev）では一切出力しない。
+// minista の headTagToStr は script のような非空要素タグで
+// dangerouslySetInnerHTML を innerHTML として扱うので、gtag の初期化を埋め込める。
+export const createGoogleAnalyticsTags = (
+  measurementId: string,
+): ReactElement[] => {
+  if (!measurementId) {
+    return []
+  }
+
+  return [
+    <script
+      key='gtag-src'
+      async
+      src={`https://www.googletagmanager.com/gtag/js?id=${measurementId}`}
+    />,
+    <script
+      key='gtag-init'
+      dangerouslySetInnerHTML={{
+        __html: `
+          window.dataLayer = window.dataLayer || [];
+          function gtag(){dataLayer.push(arguments);}
+          gtag('js', new Date());
+          gtag('config', '${measurementId}');
+        `,
+      }}
+    />,
+  ]
 }
 
 const Layout = ({
@@ -110,6 +145,7 @@ const Layout = ({
     ...alternateLinks,
     // pluginEntry がこのソースパスを検出してビルド済みCSSに差し替える
     <link key='stylesheet' rel='stylesheet' href='/src/assets/css/style.css' />,
+    ...createGoogleAnalyticsTags(GOOGLE_ANALYTICS_ID),
   ]
 
   return (
