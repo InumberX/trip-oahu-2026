@@ -1,10 +1,4 @@
-import {
-  defineConfig,
-  pluginBeautify,
-  pluginEntry,
-  pluginImage,
-  pluginSsg,
-} from 'minista'
+import { defineConfig, pluginEntry, pluginImage, pluginSsg } from 'minista'
 import { loadEnv } from 'vite'
 
 import { parseBooleanEnv } from './plugins/env'
@@ -60,7 +54,9 @@ export default defineConfig(({ command, isSsrBuild }) => {
       pluginSsg(),
       pluginEntry(),
       pluginImage({ optimize: { outName: '[name]' } }),
-      pluginBeautify({ src: ['**/*.{html,css,js}'] }),
+      // pluginBeautify（HTML/CSS/JS を読みやすく整形する）は使わない。
+      // 納品しない個人プロジェクトのため、可読性より配信サイズを優先してミニファイする。
+      // 圧縮は下の build.minify / build.cssMinify で有効化している。
       pluginSitemap({ siteUrl: SITE_URL, lastmod: LASTMOD, outDir: 'dist' }),
       pluginRobots({
         siteUrl: SITE_URL,
@@ -93,6 +89,9 @@ export default defineConfig(({ command, isSsrBuild }) => {
       // SSRビルドを壊さないよう、出力設定は通常ビルド時のみ適用する
       ...(isBuild
         ? {
+            // 配信するJS/CSSをミニファイする（pluginBeautify を外した代わりに明示的に有効化）
+            minify: true,
+            cssMinify: true,
             rolldownOptions: {
               output: {
                 assetFileNames,
