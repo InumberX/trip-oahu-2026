@@ -1,0 +1,28 @@
+@layer component-common {
+  .LayoutHeader {
+    background-color: var(--color-palette-black);
+    inline-size: 100%;
+    inset-block-start: 0;
+    inset-inline-start: 0;
+    position: fixed;
+    z-index: var(--z-index-header);
+  }
+
+  .LayoutHeader__container {
+    align-items: center;
+    block-size: var(--layout-header-height);
+    display: flex;
+    inline-size: 100%;
+  }
+
+  .LayoutHeader__items {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px 24px;
+  }
+
+  .LayoutHeader__link {
+    color: var(--color-palette-white);
+    text-decoration: none;
+  }
+}

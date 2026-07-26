@@ -1,0 +1,9 @@
+@layer component-ui-low {
+  .LayoutWrapper {
+    display: flex;
+    flex-direction: column;
+    min-block-size: 100vh;
+    min-block-size: 100svh;
+    position: relative;
+  }
+}

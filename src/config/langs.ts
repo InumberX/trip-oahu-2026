@@ -1,0 +1,14 @@
+// このモジュールは minista.config.ts（サイトマップ生成プラグイン）からも読まれる。
+// Vite の設定ローダーは `~/...` をベア指定子と見て外部化してしまい解決に失敗するため、
+// ここでは相対パスでインポートする。環境変数にも依存させない。
+import { type Lang } from '../types/lang'
+
+export const LANG = {
+  JA: 'ja',
+  EN: 'en',
+} as const
+
+export const LANGS: Lang[] = [LANG.JA, LANG.EN]
+
+// ja はプレフィックス無し（/）、en は /en 配下で公開する
+export const DEFAULT_LANG: Lang = LANG.JA

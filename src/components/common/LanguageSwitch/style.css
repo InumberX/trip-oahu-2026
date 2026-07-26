@@ -1,0 +1,13 @@
+@layer component-common {
+  .LanguageSwitch__items {
+    display: flex;
+    gap: 12px;
+    list-style: none;
+    margin-block: 0;
+    padding-inline-start: 0;
+  }
+
+  .LanguageSwitch__current {
+    font-weight: bold;
+  }
+}

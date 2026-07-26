@@ -1,0 +1,9 @@
+{
+  "name": "旅程",
+  "description": "オアフ島旅行の往路・復路と現地スケジュールをまとめています。",
+  "flightsHeading": "フライト",
+  "outbound": "往路（HND → HNL）",
+  "inbound": "復路（HNL → HND）",
+  "timeJst": "日本時間",
+  "timeHst": "ハワイ時間"
+}

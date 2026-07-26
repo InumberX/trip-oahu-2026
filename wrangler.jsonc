@@ -1,0 +1,50 @@
+{
+  "$schema": "node_modules/wrangler/config-schema.json",
+  "name": "trip-oahu-2026",
+  "compatibility_date": "2026-07-01",
+  "compatibility_flags": ["nodejs_compat"],
+  // Custom Worker entrypoint that gates the static site behind Basic auth
+  // before handing requests to the ASSETS binding.
+  "main": "./workers/app.ts",
+  // Disable the *.workers.dev subdomain in all environments so the site is only
+  // reachable via the custom domains configured per environment below.
+  "workers_dev": false,
+  "assets": {
+    // `astro build` emits the static site here.
+    "directory": "./dist",
+    "binding": "ASSETS",
+    // Route every request through the Worker first so the Basic-auth gate in
+    // workers/app.ts also covers static assets (JS/CSS/images). Without this,
+    // matching files in dist are served before the Worker runs.
+    "run_worker_first": true,
+    // Keep the default "none": the Worker needs a bare 404 from the binding to
+    // know it should serve dist/404.html itself. See workers/handler.ts.
+    "not_found_handling": "none",
+  },
+  "observability": {
+    "enabled": true,
+  },
+  // Build-time values are injected by the GitHub Actions workflow; runtime
+  // secrets (BASIC_AUTH_*) are set per environment with
+  // `wrangler secret put <NAME> --env=<environment>`.
+  "env": {
+    "development": {
+      "name": "dev-trip-oahu-2026",
+      "routes": [
+        {
+          "pattern": "dev-trip-oahu-2026.afterworks.jp",
+          "custom_domain": true,
+        },
+      ],
+    },
+    "production": {
+      "name": "trip-oahu-2026",
+      "routes": [
+        {
+          "pattern": "trip-oahu-2026.afterworks.jp",
+          "custom_domain": true,
+        },
+      ],
+    },
+  },
+}
