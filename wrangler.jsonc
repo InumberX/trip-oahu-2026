@@ -10,7 +10,7 @@
   // reachable via the custom domains configured per environment below.
   "workers_dev": false,
   "assets": {
-    // `astro build` emits the static site here.
+    // `minista build` emits the static site here.
     "directory": "./dist",
     "binding": "ASSETS",
     // Route every request through the Worker first so the Basic-auth gate in

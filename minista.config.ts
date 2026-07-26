@@ -7,6 +7,7 @@ import {
 } from 'minista'
 import { loadEnv } from 'vite'
 
+import { parseBooleanEnv } from './plugins/env'
 import { pluginRobots } from './plugins/robots'
 import { pluginSitemap } from './plugins/sitemap'
 import { pluginTrailingSlash } from './plugins/trailing-slash'
@@ -44,7 +45,8 @@ const LASTMOD = `${now.getFullYear()}-${pad(now.getMonth() + 1)}-${pad(now.getDa
 
 // 未設定時のフォールバックは Vite 既定のdevサーバー（minista はポートを上書きしない）
 const SITE_URL = env.SITE_URL || 'http://localhost:5173'
-const NO_INDEX = env.NO_INDEX || ''
+// 'false' / '0' などの否定表記も false として解釈する（plugins/env.ts 参照）
+const NO_INDEX = parseBooleanEnv(env.NO_INDEX)
 
 export default defineConfig(({ command, isSsrBuild }) => {
   // 通常ビルド（SSRビルドと切り分ける）
@@ -62,7 +64,7 @@ export default defineConfig(({ command, isSsrBuild }) => {
       pluginSitemap({ siteUrl: SITE_URL, lastmod: LASTMOD, outDir: 'dist' }),
       pluginRobots({
         siteUrl: SITE_URL,
-        noIndex: Boolean(NO_INDEX),
+        noIndex: NO_INDEX,
         outDir: 'dist',
       }),
       pluginTrailingSlash(),
@@ -75,7 +77,8 @@ export default defineConfig(({ command, isSsrBuild }) => {
     // process.env 由来の値は対象外のため、CIが注入する変数はここで明示する。
     define: {
       'import.meta.env.VITE_NODE_ENV': `"${env.NODE_ENV || 'development'}"`,
-      'import.meta.env.VITE_NO_INDEX': `"${NO_INDEX}"`,
+      // アプリ側は Boolean(NO_INDEX) で判定するため、正規化した '1' / '' を渡す
+      'import.meta.env.VITE_NO_INDEX': NO_INDEX ? "'1'" : "''",
       'import.meta.env.VITE_SITE_URL': `"${SITE_URL}"`,
       'import.meta.env.VITE_SITE_NAME': `"${env.SITE_NAME || 'Trip Oahu 2026(development)'}"`,
       'import.meta.env.VITE_GOOGLE_ANALYTICS_ID': `"${env.GOOGLE_ANALYTICS_ID || 'G-318FZ1QLCS'}"`,
