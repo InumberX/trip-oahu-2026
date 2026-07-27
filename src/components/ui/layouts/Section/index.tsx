@@ -13,21 +13,14 @@ export const LayoutSection = ({
   className,
   size,
 }: LayoutSectionProps) => {
+  // div / section のどちらでも同じクラス名を使うため一度だけ組み立てる
+  const layoutSectionClassName = `LayoutSection${
+    className ? ' ' + className : ''
+  }${size ? ' LayoutSection--' + size : ''}`
+
   return isNotSection ? (
-    <div
-      className={`LayoutSection${className ? ' ' + className : ''}${
-        size ? ' LayoutSection--' + size : ''
-      }`}
-    >
-      {children}
-    </div>
+    <div className={layoutSectionClassName}>{children}</div>
   ) : (
-    <section
-      className={`LayoutSection${className ? ' ' + className : ''}${
-        size ? ' LayoutSection--' + size : ''
-      }`}
-    >
-      {children}
-    </section>
+    <section className={layoutSectionClassName}>{children}</section>
   )
 }

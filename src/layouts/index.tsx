@@ -83,7 +83,11 @@ const Layout = ({
     ? `${title} | ${siteInfo.siteTitle}`
     : `${siteInfo.siteTitle} - ${siteInfo.titleNote}`
   const pageDescription = description || siteInfo.description
-  const ogUrl = `${SITE_URL}${currentUrl}`
+  // SITE_URL は env で末尾スラッシュ付きに設定されることがある。currentUrl は先頭が
+  // '/' なので、そのまま連結すると canonical/OG/hreflang が二重スラッシュ（//）になる。
+  // sitemap プラグインと同じく末尾スラッシュを除いてから連結する。
+  const siteUrl = SITE_URL.replace(/\/$/, '')
+  const ogUrl = `${siteUrl}${currentUrl}`
   // 環境変数によるサイト全体のnoindexと、ページ単位の指定のどちらでも有効にする
   const isNoindex = Boolean(NO_INDEX) || noindex || false
   const basePath = stripLangFromUrl(currentUrl)
@@ -98,12 +102,12 @@ const Layout = ({
         ...LANGS.map((alternateLang) =>
           createAlternateLink(
             alternateLang,
-            `${SITE_URL}${getLangRoute(alternateLang)}${basePath}`,
+            `${siteUrl}${getLangRoute(alternateLang)}${basePath}`,
           ),
         ),
         createAlternateLink(
           'x-default',
-          `${SITE_URL}${getLangRoute(DEFAULT_LANG)}${basePath}`,
+          `${siteUrl}${getLangRoute(DEFAULT_LANG)}${basePath}`,
         ),
       ]
 
