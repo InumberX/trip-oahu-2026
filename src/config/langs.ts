@@ -12,3 +12,10 @@ export const LANGS: Lang[] = [LANG.JA, LANG.EN]
 
 // ja はプレフィックス無し（/）、en は /en 配下で公開する
 export const DEFAULT_LANG: Lang = LANG.JA
+
+// OGP の og:locale は language_TERRITORY 形式が推奨。言語コード単体（ja / en）は
+// 一部クローラに無視されるため、地域付きの正規な値を持たせる。
+export const OG_LOCALE: { [K in Lang]: string } = {
+  [LANG.JA]: 'ja_JP',
+  [LANG.EN]: 'en_US',
+}

@@ -9,7 +9,7 @@ import {
   NO_INDEX,
   SITE_URL,
 } from '~/config/env'
-import { DEFAULT_LANG, LANGS } from '~/config/langs'
+import { DEFAULT_LANG, LANGS, OG_LOCALE } from '~/config/langs'
 import { type Metadata } from '~/types/metadata'
 import { getLangFromUrl, getLangRoute, stripLangFromUrl } from '~/utils/lang'
 
@@ -137,7 +137,11 @@ const Layout = ({
       content={siteInfo.siteTitle}
     />,
     <meta key='og:type' property='og:type' content={ogType} />,
-    <meta key='og:locale' property='og:locale' content={currentLang} />,
+    <meta
+      key='og:locale'
+      property='og:locale'
+      content={OG_LOCALE[currentLang]}
+    />,
     <meta
       key='twitter:card'
       name='twitter:card'

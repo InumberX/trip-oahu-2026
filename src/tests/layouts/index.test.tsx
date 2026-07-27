@@ -114,11 +114,20 @@ describe('Layout head tags', () => {
     expect(robots[0]?.props.content).toBe('noindex, nofollow')
   })
 
-  test('言語はURLから判定して og:locale に反映される', () => {
-    const tags = collectHeadTags(<Layout url='/en/' />)
-    const ogLocale = findByProp(tags, 'property', 'og:locale')
+  test('言語はURLから判定して og:locale に language_TERRITORY 形式で反映される', () => {
+    const jaLocale = findByProp(
+      collectHeadTags(<Layout url='/' />),
+      'property',
+      'og:locale',
+    )
+    const enLocale = findByProp(
+      collectHeadTags(<Layout url='/en/' />),
+      'property',
+      'og:locale',
+    )
 
-    expect(ogLocale[0]?.props.content).toBe('en')
+    expect(jaLocale[0]?.props.content).toBe('ja_JP')
+    expect(enLocale[0]?.props.content).toBe('en_US')
   })
 
   test('og:type はトップページなら言語に依らず website（en トップも website）', () => {
