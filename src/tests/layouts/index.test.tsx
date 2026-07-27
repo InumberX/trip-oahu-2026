@@ -121,6 +121,38 @@ describe('Layout head tags', () => {
     expect(ogLocale[0]?.props.content).toBe('en')
   })
 
+  test('og:type はトップページなら言語に依らず website（en トップも website）', () => {
+    const jaTop = findByProp(
+      collectHeadTags(<Layout url='/' />),
+      'property',
+      'og:type',
+    )
+    const enTop = findByProp(
+      collectHeadTags(<Layout url='/en/' />),
+      'property',
+      'og:type',
+    )
+
+    expect(jaTop[0]?.props.content).toBe('website')
+    expect(enTop[0]?.props.content).toBe('website')
+  })
+
+  test('og:type は下層ページなら言語に依らず article', () => {
+    const jaSub = findByProp(
+      collectHeadTags(<Layout url='/itinerary/' />),
+      'property',
+      'og:type',
+    )
+    const enSub = findByProp(
+      collectHeadTags(<Layout url='/en/itinerary/' />),
+      'property',
+      'og:type',
+    )
+
+    expect(jaSub[0]?.props.content).toBe('article')
+    expect(enSub[0]?.props.content).toBe('article')
+  })
+
   // 計測IDは vitest.config.ts の define で与えている。ID未設定時に出力しないことは
   // createGoogleAnalyticsTags の単体テスト側で担保する（define はビルド時に固定される
   // ため、1回のテスト実行では両分岐を通せない）。

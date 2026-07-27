@@ -84,10 +84,12 @@ const Layout = ({
     : `${siteInfo.siteTitle} - ${siteInfo.titleNote}`
   const pageDescription = description || siteInfo.description
   const ogUrl = `${SITE_URL}${currentUrl}`
-  const ogType = currentUrl === '/' ? 'website' : 'article'
   // 環境変数によるサイト全体のnoindexと、ページ単位の指定のどちらでも有効にする
   const isNoindex = Boolean(NO_INDEX) || noindex || false
   const basePath = stripLangFromUrl(currentUrl)
+  // og:type はトップページのみ website。言語プレフィックスを外したパスで判定し、
+  // ja(/) と en(/en/) のトップで og:type が食い違わないようにする。
+  const ogType = basePath === '/' ? 'website' : 'article'
 
   // 404など noindex のページに alternate を張ると別言語版の存在を誤って主張するため出さない
   const alternateLinks = isNoindex
