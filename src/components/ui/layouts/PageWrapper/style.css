@@ -1,0 +1,5 @@
+@layer component-ui-low {
+  .LayoutPageWrapper {
+    padding-block-start: var(--layout-header-height);
+  }
+}

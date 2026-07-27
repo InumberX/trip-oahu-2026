@@ -1,0 +1,46 @@
+{
+  "$schema": "./node_modules/oxfmt/configuration_schema.json",
+  "singleQuote": true,
+  "semi": false,
+  "trailingComma": "all",
+  "printWidth": 80,
+  "tabWidth": 2,
+  "useTabs": false,
+  "bracketSpacing": true,
+  "endOfLine": "lf",
+  "arrowParens": "always",
+  "htmlWhitespaceSensitivity": "css",
+  "insertPragma": false,
+  "singleAttributePerLine": false,
+  "bracketSameLine": false,
+  "jsxSingleQuote": true,
+  "proseWrap": "preserve",
+  "quoteProps": "as-needed",
+  "requirePragma": false,
+  "embeddedLanguageFormatting": "auto",
+  "sortPackageJson": false,
+  "ignorePatterns": [
+    "**/*.md",
+    "**/*.html",
+    "dist",
+    "storybook-static",
+    ".wrangler"
+  ],
+  "sortImports": {
+    "newlinesBetween": true,
+    "groups": [
+      ["value-builtin", "value-external", "type-builtin", "type-external"],
+      [
+        "value-parent",
+        "value-sibling",
+        "value-index",
+        "type-parent",
+        "type-sibling",
+        "type-index"
+      ],
+      ["value-internal", "type-internal"],
+      "unknown"
+    ],
+    "internalPrefix": ["~/"]
+  }
+}

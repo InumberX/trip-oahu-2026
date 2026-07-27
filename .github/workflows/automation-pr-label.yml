@@ -1,0 +1,37 @@
+name: Automatically labeling pull request.
+
+on:
+  pull_request:
+    types: [opened]
+
+permissions:
+  contents: read
+  pull-requests: write
+
+jobs:
+  auto-labeling-pr:
+    runs-on: ubuntu-latest
+
+    env:
+      GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+    steps:
+      # ブランチのプレフィックスからラベル名を決める
+      - name: Get label name
+        id: label_name
+        run: |
+          branch_type=$(echo "${{ github.head_ref }}" | cut -d '/' -f1)
+          case "$branch_type" in
+            feature) label_name=enhancement ;;
+            bugfix|hotfix) label_name=bug ;;
+            *) label_name='' ;;
+          esac
+          echo "label_name=$label_name" >> "$GITHUB_OUTPUT"
+
+      # PRにラベルを付与する
+      - name: Auto labeling
+        if: ${{ steps.label_name.outputs.label_name != '' }}
+        run: |
+          gh pr edit '${{ github.event.pull_request.number }}' \
+            --repo '${{ github.repository }}' \
+            --add-label '${{ steps.label_name.outputs.label_name }}'

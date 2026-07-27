@@ -1,0 +1,88 @@
+{
+  "name": "@inumberx/trip-oahu-2026",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "dev": "minista",
+    "build": "cross-env NODE_ENV=production minista build",
+    "build-development": "cross-env CLOUDFLARE_ENV=development npm run build",
+    "build-production": "cross-env CLOUDFLARE_ENV=production npm run build",
+    "preview": "minista preview",
+    "clean": "rm -rf ./dist",
+    "start": "cross-env NODE_ENV=production CLOUDFLARE_ENV=development wrangler dev",
+    "deploy-development": "npm run build-development && cross-env NODE_ENV=production CLOUDFLARE_ENV=development wrangler deploy --env=development",
+    "deploy-production": "npm run build-production && cross-env NODE_ENV=production CLOUDFLARE_ENV=production wrangler deploy --env=production",
+    "typecheck": "tsc -b",
+    "lint": "oxlint . --max-warnings=0",
+    "lint-fix": "oxlint --fix .",
+    "stylelint": "stylelint './{src,.storybook}/**/*.{css,scss,sass}'",
+    "stylelint-fix": "stylelint --fix './{src,.storybook}/**/*.{css,scss,sass}'",
+    "format": "oxfmt --check .",
+    "format-fix": "oxfmt --write .",
+    "test": "vitest",
+    "test-run": "vitest run",
+    "storybook": "storybook dev --no-open -p 6006",
+    "storybook-build": "storybook build",
+    "upgrade": "npx npm-check-updates -u",
+    "upgrade-check": "npx npm-check-updates",
+    "pre-commit": "npm run typecheck && npm run lint-fix && npm run stylelint-fix && npm run format-fix"
+  },
+  "browserslist": [
+    "last 1 Chrome versions",
+    "last 1 Edge versions",
+    "last 1 Firefox versions",
+    "last 1 Safari versions",
+    "last 1 iOS versions",
+    "last 1 ChromeAndroid versions"
+  ],
+  "dependencies": {
+    "@inumberx/cloudflare-workers-basic-auth": "^1.0.1"
+  },
+  "devDependencies": {
+    "@csstools/postcss-global-data": "^4.0.0",
+    "@date-fns/tz": "^1.5.0",
+    "@storybook/addon-docs": "^10.5.4",
+    "@storybook/addon-links": "^10.5.4",
+    "@storybook/react-vite": "^10.5.4",
+    "@testing-library/dom": "^10.4.1",
+    "@testing-library/jest-dom": "^7.0.0",
+    "@testing-library/react": "^16.3.2",
+    "@types/node": "^26.1.1",
+    "@types/react": "^19.2.17",
+    "@types/react-dom": "^19.2.3",
+    "@vitejs/plugin-react": "^6.0.4",
+    "cross-env": "^10.1.0",
+    "date-fns": "^4.4.0",
+    "jsdom": "^29.1.1",
+    "minista": "^4.0.6",
+    "oxfmt": "^0.60.0",
+    "oxlint": "^1.75.0",
+    "postcss": "^8.5.23",
+    "postcss-custom-media": "^12.0.1",
+    "postcss-import": "^16.1.1",
+    "postcss-mixins": "^12.1.2",
+    "postcss-nested": "^7.0.2",
+    "react": "^19.2.8",
+    "react-dom": "^19.2.8",
+    "storybook": "^10.5.4",
+    "stylelint": "^17.14.1",
+    "stylelint-config-standard-scss": "^17.0.0",
+    "stylelint-order": "^8.1.1",
+    "stylelint-scss": "^7.2.0",
+    "typescript": "^7.0.2",
+    "vite": "^8.1.5",
+    "vitest": "^4.1.10",
+    "wrangler": "^4.114.0"
+  },
+  "overrides": {
+    "sharp": "^0.35.3",
+    "brace-expansion": "^5.0.8"
+  },
+  "engines": {
+    "node": ">=24.0.0"
+  },
+  "volta": {
+    "node": "24.16.0"
+  }
+}
