@@ -35,7 +35,10 @@ const env = { ...fileEnv, ...process.env }
 const now = new Date()
 const pad = (value: number) => String(value).padStart(2, '0')
 const CACHE_BUSTER = `ver=${now.getFullYear()}${pad(now.getMonth() + 1)}${pad(now.getDate())}${pad(now.getHours())}${pad(now.getMinutes())}${pad(now.getSeconds())}`
-const LASTMOD = `${now.getFullYear()}-${pad(now.getMonth() + 1)}-${pad(now.getDate())}T${pad(now.getHours())}:${pad(now.getMinutes())}:${pad(now.getSeconds())}+09:00`
+// lastmod（sitemap.xml で使用）はランナーのタイムゾーンに依存させない。
+// getHours() 等はローカル時刻を返すため、+09:00 を固定で付けると UTC ランナー
+// （GitHub Actions）で9時間ずれた不正な値になる。UTC の ISO 8601（末尾 Z）で出す。
+const LASTMOD = now.toISOString().replace(/\.\d{3}Z$/, 'Z')
 
 // 未設定時のフォールバックは Vite 既定のdevサーバー（minista はポートを上書きしない）
 const SITE_URL = env.SITE_URL || 'http://localhost:5173'
