@@ -5,6 +5,9 @@ on:
     branches:
       - '**'
 
+permissions:
+  contents: read
+
 env:
   cache-version: v1
 

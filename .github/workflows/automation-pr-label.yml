@@ -19,8 +19,12 @@ jobs:
       # ブランチのプレフィックスからラベル名を決める
       - name: Get label name
         id: label_name
+        # HEAD_REF は PR 作成者が決められる。run: へ ${{ }} で直接展開すると
+        # シェル起動前のテキスト置換になり、`$( )` などがコマンドとして実行される。
+        env:
+          HEAD_REF: ${{ github.head_ref }}
         run: |
-          branch_type=$(echo "${{ github.head_ref }}" | cut -d '/' -f1)
+          branch_type=${HEAD_REF%%/*}
           case "$branch_type" in
             feature) label_name=enhancement ;;
             bugfix|hotfix) label_name=bug ;;
