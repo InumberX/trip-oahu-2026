@@ -9,9 +9,33 @@ export const PAGES = {
     id: 'TOAHU2026_10_100',
     path: '/',
   },
+  TOAHU2026_10_110: {
+    id: 'TOAHU2026_10_110',
+    path: '/day1/',
+  },
+  TOAHU2026_10_120: {
+    id: 'TOAHU2026_10_120',
+    path: '/day2/',
+  },
+  TOAHU2026_10_130: {
+    id: 'TOAHU2026_10_130',
+    path: '/day3/',
+  },
+  TOAHU2026_10_140: {
+    id: 'TOAHU2026_10_140',
+    path: '/day4/',
+  },
+  TOAHU2026_10_150: {
+    id: 'TOAHU2026_10_150',
+    path: '/day5/',
+  },
+  TOAHU2026_10_160: {
+    id: 'TOAHU2026_10_160',
+    path: '/day6/',
+  },
   TOAHU2026_20_100: {
     id: 'TOAHU2026_20_100',
-    path: '/itinerary/',
+    path: '/map/',
   },
 } as const
 

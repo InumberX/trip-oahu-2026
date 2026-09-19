@@ -1,6 +1,6 @@
 {
-  "name": "旅程",
-  "description": "オアフ島旅行の往路・復路と現地スケジュールをまとめています。",
+  "name": "マップ",
+  "description": "オアフ島旅行のフライトと、訪れる場所の地図をまとめています。",
   "flightsHeading": "フライト",
   "outbound": "往路（HND → HNL）",
   "inbound": "復路（HNL → HND）",

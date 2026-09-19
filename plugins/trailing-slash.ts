@@ -3,7 +3,7 @@ import { type Plugin } from 'vite'
 import { getPageEntries } from '../src/config/pages'
 
 // minista の devサーバーはページURLを完全一致（`page.url === url`）でしか解決しないため、
-// 末尾スラッシュの無いURL（/en、/itinerary など）が 404 になる。
+// 末尾スラッシュの無いURL（/en、/map など）が 404 になる。
 // 本番の Cloudflare では ASSETS の html_handling（既定は auto-trailing-slash）が
 // 307 で末尾スラッシュ付きに飛ばすので、devでも同じ挙動になるよう補う。
 //
