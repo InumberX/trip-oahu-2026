@@ -25,16 +25,16 @@ describe('getLangRoute', () => {
 describe('getLangFromUrl', () => {
   test.each([
     ['/', LANG.JA],
-    ['/itinerary/', LANG.JA],
+    ['/map/', LANG.JA],
     ['/en/', LANG.EN],
-    ['/en/itinerary/', LANG.EN],
+    ['/en/map/', LANG.EN],
     ['/en/404', LANG.EN],
   ])('%s -> %s', (url, expected) => {
     expect(getLangFromUrl(url)).toBe(expected)
   })
 
   test('言語として解釈できない先頭セグメントはデフォルト言語になる', () => {
-    expect(getLangFromUrl('/itinerary/en/')).toBe(LANG.JA)
+    expect(getLangFromUrl('/map/en/')).toBe(LANG.JA)
     expect(getLangFromUrl('/fr/')).toBe(LANG.JA)
   })
 
@@ -47,9 +47,9 @@ describe('getLangFromUrl', () => {
 describe('stripLangFromUrl', () => {
   test.each([
     ['/', '/'],
-    ['/itinerary/', '/itinerary/'],
+    ['/map/', '/map/'],
     ['/en/', '/'],
-    ['/en/itinerary/', '/itinerary/'],
+    ['/en/map/', '/map/'],
   ])('%s -> %s', (url, expected) => {
     expect(stripLangFromUrl(url)).toBe(expected)
   })

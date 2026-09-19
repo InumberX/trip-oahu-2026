@@ -10,24 +10,26 @@ describe('createSitemap', () => {
 
   test('全言語・全ページのURLを含む', () => {
     expect(xml).toContain(`<loc>${SITE_URL}/</loc>`)
-    expect(xml).toContain(`<loc>${SITE_URL}/itinerary/</loc>`)
+    expect(xml).toContain(`<loc>${SITE_URL}/day1/</loc>`)
+    expect(xml).toContain(`<loc>${SITE_URL}/map/</loc>`)
     expect(xml).toContain(`<loc>${SITE_URL}/en/</loc>`)
-    expect(xml).toContain(`<loc>${SITE_URL}/en/itinerary/</loc>`)
+    expect(xml).toContain(`<loc>${SITE_URL}/en/day6/</loc>`)
+    expect(xml).toContain(`<loc>${SITE_URL}/en/map/</loc>`)
   })
 
   test('<url> は言語数 × ページ数だけ出力される', () => {
-    expect(xml.match(/<url>/g)).toHaveLength(4)
+    expect(xml.match(/<url>/g)).toHaveLength(16)
   })
 
   test('各URLに全言語の hreflang と x-default が付く', () => {
     expect(xml).toContain(
-      `<xhtml:link rel="alternate" hreflang="ja" href="${SITE_URL}/itinerary/" />`,
+      `<xhtml:link rel="alternate" hreflang="ja" href="${SITE_URL}/map/" />`,
     )
     expect(xml).toContain(
-      `<xhtml:link rel="alternate" hreflang="en" href="${SITE_URL}/en/itinerary/" />`,
+      `<xhtml:link rel="alternate" hreflang="en" href="${SITE_URL}/en/map/" />`,
     )
     expect(xml).toContain(
-      `<xhtml:link rel="alternate" hreflang="x-default" href="${SITE_URL}/itinerary/" />`,
+      `<xhtml:link rel="alternate" hreflang="x-default" href="${SITE_URL}/map/" />`,
     )
   })
 
@@ -36,7 +38,7 @@ describe('createSitemap', () => {
   })
 
   test('lastmod を出力する', () => {
-    expect(xml.match(/<lastmod>/g)).toHaveLength(4)
+    expect(xml.match(/<lastmod>/g)).toHaveLength(16)
     expect(xml).toContain(`<lastmod>${LASTMOD}</lastmod>`)
   })
 

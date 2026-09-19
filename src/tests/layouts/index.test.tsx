@@ -49,7 +49,7 @@ const findByProp = (tags: unknown[], prop: string, value: string) => {
 
 describe('Layout head tags', () => {
   test('収集されたタグはすべて要素で、入れ子の配列を含まない', () => {
-    const tags = collectHeadTags(<Layout url='/itinerary/' title='旅程' />)
+    const tags = collectHeadTags(<Layout url='/map/' title='マップ' />)
 
     expect(tags.length).toBeGreaterThan(0)
     for (const tag of tags) {
@@ -61,30 +61,28 @@ describe('Layout head tags', () => {
   })
 
   test('ja ページは全言語 + x-default の hreflang を出す', () => {
-    const tags = collectHeadTags(<Layout url='/itinerary/' title='旅程' />)
+    const tags = collectHeadTags(<Layout url='/map/' title='マップ' />)
     const alternates = findLinks(tags, 'alternate')
 
     expect(
       alternates.map((tag) => [tag.props.hreflang, tag.props.href]),
     ).toEqual([
-      ['ja', `${SITE_URL}/itinerary/`],
-      ['en', `${SITE_URL}/en/itinerary/`],
-      ['x-default', `${SITE_URL}/itinerary/`],
+      ['ja', `${SITE_URL}/map/`],
+      ['en', `${SITE_URL}/en/map/`],
+      ['x-default', `${SITE_URL}/map/`],
     ])
   })
 
   test('en ページでも alternate の内容は同じ（自己参照を含む）', () => {
-    const tags = collectHeadTags(
-      <Layout url='/en/itinerary/' title='Itinerary' />,
-    )
+    const tags = collectHeadTags(<Layout url='/en/map/' title='Map' />)
     const alternates = findLinks(tags, 'alternate')
 
     expect(
       alternates.map((tag) => [tag.props.hreflang, tag.props.href]),
     ).toEqual([
-      ['ja', `${SITE_URL}/itinerary/`],
-      ['en', `${SITE_URL}/en/itinerary/`],
-      ['x-default', `${SITE_URL}/itinerary/`],
+      ['ja', `${SITE_URL}/map/`],
+      ['en', `${SITE_URL}/en/map/`],
+      ['x-default', `${SITE_URL}/map/`],
     ])
   })
 
@@ -148,12 +146,12 @@ describe('Layout head tags', () => {
 
   test('og:type は下層ページなら言語に依らず article', () => {
     const jaSub = findByProp(
-      collectHeadTags(<Layout url='/itinerary/' />),
+      collectHeadTags(<Layout url='/map/' />),
       'property',
       'og:type',
     )
     const enSub = findByProp(
-      collectHeadTags(<Layout url='/en/itinerary/' />),
+      collectHeadTags(<Layout url='/en/map/' />),
       'property',
       'og:type',
     )

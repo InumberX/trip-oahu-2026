@@ -100,7 +100,8 @@ Storybook needs no provider.
 | | ja | en |
 | --- | --- | --- |
 | Top | `/` | `/en/` |
-| Itinerary | `/itinerary/` | `/en/itinerary/` |
+| Day 1–6 | `/day1/` … `/day6/` | `/en/day1/` … `/en/day6/` |
+| Map | `/map/` | `/en/map/` |
 | 404 | `/404.html` | `/en/404.html` |
 
 **Adding a page:**
@@ -229,7 +230,8 @@ Breakpoints: xs=360, sm=576, md=768, lg=992, xl=1200, xxl=1400
 - **File names**: kebab-case, **except** component directories, which are PascalCase and match
   the component name (`components/common/LanguageSwitch/`). `src/stories/` and `src/tests/`
   mirror that structure. Page-body directories under `components/pages/` are lowercase
-  (`top`, `itinerary`, `not-found`).
+  (`home`, `day1`…`day6`, `map`, `not-found`). Page-body components are named
+  `Page<pageId>` (e.g. `PageTOAHU2026_10_100`).
 - **Components**: functional arrow functions; PascalCase CSS class names (enforced by StyleLint
   `^[A-Z]+([a-zA-Z0-9\-_]+)*$`), alphabetical property order
 - **Formatting**: single quotes, no semicolons, 2-space indent, trailing commas, printWidth 80,
