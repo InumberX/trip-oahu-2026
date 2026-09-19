@@ -2,11 +2,23 @@ import { LANG } from '~/config/langs'
 import enCommon from '~/locales/en/common.json'
 import enComponentsCommonHeader from '~/locales/en/components/common/header.json'
 import enPagesTOAHU2026_10_100 from '~/locales/en/pages/TOAHU2026_10_100.json'
+import enPagesTOAHU2026_10_110 from '~/locales/en/pages/TOAHU2026_10_110.json'
+import enPagesTOAHU2026_10_120 from '~/locales/en/pages/TOAHU2026_10_120.json'
+import enPagesTOAHU2026_10_130 from '~/locales/en/pages/TOAHU2026_10_130.json'
+import enPagesTOAHU2026_10_140 from '~/locales/en/pages/TOAHU2026_10_140.json'
+import enPagesTOAHU2026_10_150 from '~/locales/en/pages/TOAHU2026_10_150.json'
+import enPagesTOAHU2026_10_160 from '~/locales/en/pages/TOAHU2026_10_160.json'
 import enPagesTOAHU2026_20_100 from '~/locales/en/pages/TOAHU2026_20_100.json'
 import enPagesTOAHU2026_E_404 from '~/locales/en/pages/TOAHU2026_E_404.json'
 import jaCommon from '~/locales/ja/common.json'
 import jaComponentsCommonHeader from '~/locales/ja/components/common/header.json'
 import jaPagesTOAHU2026_10_100 from '~/locales/ja/pages/TOAHU2026_10_100.json'
+import jaPagesTOAHU2026_10_110 from '~/locales/ja/pages/TOAHU2026_10_110.json'
+import jaPagesTOAHU2026_10_120 from '~/locales/ja/pages/TOAHU2026_10_120.json'
+import jaPagesTOAHU2026_10_130 from '~/locales/ja/pages/TOAHU2026_10_130.json'
+import jaPagesTOAHU2026_10_140 from '~/locales/ja/pages/TOAHU2026_10_140.json'
+import jaPagesTOAHU2026_10_150 from '~/locales/ja/pages/TOAHU2026_10_150.json'
+import jaPagesTOAHU2026_10_160 from '~/locales/ja/pages/TOAHU2026_10_160.json'
 import jaPagesTOAHU2026_20_100 from '~/locales/ja/pages/TOAHU2026_20_100.json'
 import jaPagesTOAHU2026_E_404 from '~/locales/ja/pages/TOAHU2026_E_404.json'
 import { type Lang } from '~/types/lang'
@@ -17,6 +29,12 @@ const resources = {
   [LANG.JA]: {
     common: jaCommon,
     'pages/TOAHU2026_10_100': jaPagesTOAHU2026_10_100,
+    'pages/TOAHU2026_10_110': jaPagesTOAHU2026_10_110,
+    'pages/TOAHU2026_10_120': jaPagesTOAHU2026_10_120,
+    'pages/TOAHU2026_10_130': jaPagesTOAHU2026_10_130,
+    'pages/TOAHU2026_10_140': jaPagesTOAHU2026_10_140,
+    'pages/TOAHU2026_10_150': jaPagesTOAHU2026_10_150,
+    'pages/TOAHU2026_10_160': jaPagesTOAHU2026_10_160,
     'pages/TOAHU2026_20_100': jaPagesTOAHU2026_20_100,
     'pages/TOAHU2026_E_404': jaPagesTOAHU2026_E_404,
     'components/common/header': jaComponentsCommonHeader,
@@ -24,6 +42,12 @@ const resources = {
   [LANG.EN]: {
     common: enCommon,
     'pages/TOAHU2026_10_100': enPagesTOAHU2026_10_100,
+    'pages/TOAHU2026_10_110': enPagesTOAHU2026_10_110,
+    'pages/TOAHU2026_10_120': enPagesTOAHU2026_10_120,
+    'pages/TOAHU2026_10_130': enPagesTOAHU2026_10_130,
+    'pages/TOAHU2026_10_140': enPagesTOAHU2026_10_140,
+    'pages/TOAHU2026_10_150': enPagesTOAHU2026_10_150,
+    'pages/TOAHU2026_10_160': enPagesTOAHU2026_10_160,
     'pages/TOAHU2026_20_100': enPagesTOAHU2026_20_100,
     'pages/TOAHU2026_E_404': enPagesTOAHU2026_E_404,
     'components/common/header': enComponentsCommonHeader,

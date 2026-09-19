@@ -2,16 +2,18 @@ import { LayoutInner } from '~/components/ui/layouts/Inner'
 import { LayoutPageWrapper } from '~/components/ui/layouts/PageWrapper'
 import { LayoutSection } from '~/components/ui/layouts/Section'
 import { DATETIME_FORMAT, TRIP_END, TRIP_START } from '~/config/consts'
+import { PAGES } from '~/config/pages'
 import { LayoutDefault } from '~/layouts/Base'
 import { type Lang } from '~/types/lang'
 import { formatHst, formatJst } from '~/utils/date'
 import { getDictionary } from '~/utils/locale'
 
-type ItineraryPageProps = {
+type PageTOAHU2026_20_100Props = {
   lang: Lang
 }
 
-export const ItineraryPage = ({ lang }: ItineraryPageProps) => {
+export const PageTOAHU2026_20_100 = ({ lang }: PageTOAHU2026_20_100Props) => {
+  const page = PAGES.TOAHU2026_20_100
   const dict = getDictionary(lang, 'pages/TOAHU2026_20_100')
   const datetimeFormat = DATETIME_FORMAT[lang]
 
@@ -21,7 +23,7 @@ export const ItineraryPage = ({ lang }: ItineraryPageProps) => {
   ]
 
   return (
-    <LayoutDefault lang={lang} pageId='TOAHU2026_20_100'>
+    <LayoutDefault lang={lang} pageId={page.id}>
       <LayoutPageWrapper>
         <LayoutSection isNotSection>
           <LayoutInner>

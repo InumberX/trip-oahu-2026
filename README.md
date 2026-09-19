@@ -44,7 +44,8 @@ cp .dev.vars.example .dev.vars           # ローカルで Basic 認証を試す
 src/
   pages/        ファイルベースルーティング（言語別の薄いラッパー）
     index.tsx           → /
-    itinerary/index.tsx → /itinerary/
+    day1/index.tsx      → /day1/（day6 まで同様）
+    map/index.tsx       → /map/
     404.tsx             → /404.html
     en/...              → /en/ 配下（同じ構成）
   components/pages/  ページの実体（lang を prop で受ける）
@@ -71,7 +72,8 @@ ja をデフォルトとしてプレフィックス無しで、en を `/en` 配�
 | | ja | en |
 | --- | --- | --- |
 | トップ | `/` | `/en/` |
-| 旅程 | `/itinerary/` | `/en/itinerary/` |
+| 1〜6日目 | `/day1/` 〜 `/day6/` | `/en/day1/` 〜 `/en/day6/` |
+| マップ | `/map/` | `/en/map/` |
 | 404 | `/404.html` | `/en/404.html` |
 
 - **ページの追加**は `src/config/pages.ts` にパスを足し、`src/pages/` と
@@ -94,7 +96,7 @@ ja をデフォルトとしてプレフィックス無しで、en を `/en` 配�
 
 | 種別 | 書式 | 例 |
 | --- | --- | --- |
-| 通常ページ | `TOAHU2026_<グループ>_<連番>` | `TOAHU2026_10_100`（ホーム）<br>`TOAHU2026_20_100`（旅程） |
+| 通常ページ | `TOAHU2026_<グループ>_<連番>` | `TOAHU2026_10_100`（ホーム）<br>`TOAHU2026_10_110`〜`160`（1〜6日目）<br>`TOAHU2026_20_100`（マップ） |
 | エラーページ | `TOAHU2026_E_<HTTPステータス>` | `TOAHU2026_E_404` |
 
 エラーページを連番にせず HTTP ステータスで識別しているのは、404 が routable な
@@ -105,10 +107,10 @@ sitemap 対象外、`pageId` prop にもなれない）、翻訳の名前空間�
 
 ### 末尾スラッシュ
 
-内部リンクは `~/config/routes` が末尾スラッシュ付きのURL（`/en/`, `/itinerary/`）を返します。
+内部リンクは `~/config/routes` が末尾スラッシュ付きのURL（`/en/`, `/map/`）を返します。
 
 minista の devサーバーはページURLを**完全一致**（`page.url === url`）でしか解決しないため、
-`/en` や `/itinerary` のように末尾スラッシュ無しでアクセスすると素の 404 になります。
+`/en` や `/map` のように末尾スラッシュ無しでアクセスすると素の 404 になります。
 一方 Cloudflare の ASSETS は `html_handling`（既定 `auto-trailing-slash`）が 307 で
 末尾スラッシュ付きへ飛ばします。この差を埋めるため `plugins/trailing-slash.ts`
 （dev限定）が同じ 307 リダイレクトを行います。判定は既知のページURLに限定しており、
