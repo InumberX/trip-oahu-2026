@@ -1,0 +1,26 @@
+version: 2
+
+updates:
+  # Actions are pinned to a floating major tag (actions/checkout@v7), which
+  # absorbs minor and patch releases, so a major is the only update Dependabot
+  # can offer. Without this ecosystem nothing raises them: actions/cache@v2
+  # stopped every run once GitHub removed it.
+  - package-ecosystem: 'github-actions'
+    directory: '/'
+    schedule:
+      interval: 'weekly'
+      day: monday
+      time: '06:00'
+      timezone: Asia/Tokyo
+    commit-message:
+      prefix: 'chore'
+      include: 'scope'
+    groups:
+      actions:
+        patterns:
+          - '*'
+        # wrangler-action runs only on a push to develop or main, so no
+        # Dependabot pull request exercises it. Its bump arrives on its own,
+        # which is easier to judge, and to revert, when nothing else rides along.
+        exclude-patterns:
+          - 'cloudflare/wrangler-action'
