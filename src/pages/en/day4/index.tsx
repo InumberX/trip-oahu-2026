@@ -1,15 +1,15 @@
-import { ItineraryPage } from '~/components/pages/itinerary'
+import { PageTOAHU2026_10_140 } from '~/components/pages/day4'
 import { LANG } from '~/config/langs'
 import { type Metadata } from '~/types/metadata'
 import { getDictionary } from '~/utils/locale'
 
-const dict = getDictionary(LANG.EN, 'pages/TOAHU2026_20_100')
+const dict = getDictionary(LANG.EN, 'pages/TOAHU2026_10_140')
 
 export const metadata: Metadata = {
   title: dict.name,
   description: dict.description,
 }
 
-const Page = () => <ItineraryPage lang={LANG.EN} />
+const Page = () => <PageTOAHU2026_10_140 lang={LANG.EN} />
 
 export default Page

@@ -6,7 +6,7 @@ const meta = {
   title: 'components/primitives/buttons/PrimitiveButton',
   component: PrimitiveButton,
   args: {
-    children: '旅程を見る',
+    children: 'マップを見る',
   },
 } satisfies Meta<typeof PrimitiveButton>
 
@@ -24,6 +24,6 @@ export const Disabled: Story = {
 
 export const Anchor: Story = {
   args: {
-    url: '/itinerary/',
+    url: '/map/',
   },
 }

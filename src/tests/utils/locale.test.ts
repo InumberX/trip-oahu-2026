@@ -5,16 +5,20 @@ import { getDictionary } from '~/utils/locale'
 
 describe('getDictionary', () => {
   test('言語ごとに別の値を返す', () => {
-    expect(getDictionary(LANG.JA, 'pages/TOAHU2026_20_100').name).toBe('旅程')
-    expect(getDictionary(LANG.EN, 'pages/TOAHU2026_20_100').name).toBe(
-      'Itinerary',
-    )
+    expect(getDictionary(LANG.JA, 'pages/TOAHU2026_20_100').name).toBe('マップ')
+    expect(getDictionary(LANG.EN, 'pages/TOAHU2026_20_100').name).toBe('Map')
   })
 
   test('ja と en で同じキー集合を持つ', () => {
     const namespaces = [
       'common',
       'pages/TOAHU2026_10_100',
+      'pages/TOAHU2026_10_110',
+      'pages/TOAHU2026_10_120',
+      'pages/TOAHU2026_10_130',
+      'pages/TOAHU2026_10_140',
+      'pages/TOAHU2026_10_150',
+      'pages/TOAHU2026_10_160',
       'pages/TOAHU2026_20_100',
       'pages/TOAHU2026_E_404',
       'components/common/header',

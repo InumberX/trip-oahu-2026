@@ -1,6 +1,6 @@
 {
-  "name": "Itinerary",
-  "description": "Outbound and return flights plus the on-the-ground schedule for our trip to Oahu.",
+  "name": "Map",
+  "description": "Flights and a map of the places we will visit on our trip to Oahu.",
   "flightsHeading": "Flights",
   "outbound": "Outbound (HND → HNL)",
   "inbound": "Return (HNL → HND)",

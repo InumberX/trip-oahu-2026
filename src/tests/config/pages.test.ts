@@ -6,9 +6,21 @@ describe('getPageEntries', () => {
   test('全言語 × 全ページのURLを返す', () => {
     expect(getPageEntries().map((entry) => entry.url)).toEqual([
       '/',
-      '/itinerary/',
+      '/day1/',
+      '/day2/',
+      '/day3/',
+      '/day4/',
+      '/day5/',
+      '/day6/',
+      '/map/',
       '/en/',
-      '/en/itinerary/',
+      '/en/day1/',
+      '/en/day2/',
+      '/en/day3/',
+      '/en/day4/',
+      '/en/day5/',
+      '/en/day6/',
+      '/en/map/',
     ])
   })
 

@@ -10,7 +10,7 @@ describe('LanguageSwitch', () => {
 
     expect(screen.getByRole('link', { name: 'English' })).toHaveAttribute(
       'href',
-      '/en/itinerary/',
+      '/en/map/',
     )
   })
 
@@ -19,7 +19,7 @@ describe('LanguageSwitch', () => {
 
     expect(screen.getByRole('link', { name: '日本語' })).toHaveAttribute(
       'href',
-      '/itinerary/',
+      '/map/',
     )
   })
 

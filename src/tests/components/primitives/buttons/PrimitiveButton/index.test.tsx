@@ -5,24 +5,24 @@ import { PrimitiveButton } from '~/components/primitives/buttons/PrimitiveButton
 
 describe('PrimitiveButton', () => {
   test('url が無ければ button として描画される', () => {
-    render(<PrimitiveButton>旅程を見る</PrimitiveButton>)
+    render(<PrimitiveButton>マップを見る</PrimitiveButton>)
 
-    const button = screen.getByRole('button', { name: '旅程を見る' })
+    const button = screen.getByRole('button', { name: 'マップを見る' })
     expect(button).toBeInTheDocument()
     expect(button).toHaveAttribute('type', 'button')
   })
 
   test('url があれば anchor として描画される', () => {
-    render(<PrimitiveButton url='/itinerary/'>旅程を見る</PrimitiveButton>)
+    render(<PrimitiveButton url='/map/'>マップを見る</PrimitiveButton>)
 
-    expect(screen.getByRole('link', { name: '旅程を見る' })).toHaveAttribute(
+    expect(screen.getByRole('link', { name: 'マップを見る' })).toHaveAttribute(
       'href',
-      '/itinerary/',
+      '/map/',
     )
   })
 
   test('isDisabled で disabled 属性と修飾クラスが付く', () => {
-    render(<PrimitiveButton isDisabled>旅程を見る</PrimitiveButton>)
+    render(<PrimitiveButton isDisabled>マップを見る</PrimitiveButton>)
 
     const button = screen.getByRole('button')
     expect(button).toBeDisabled()
