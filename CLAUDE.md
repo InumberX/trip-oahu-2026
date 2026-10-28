@@ -250,15 +250,14 @@ Breakpoints: xs=360, sm=576, md=768, lg=992, xl=1200, xxl=1400
   environment. Build-time variables come from GitHub Environment **Variables**; credentials from
   Secrets (`CLOUDFLARE_API_TOKEN`, `CLOUDFLARE_ACCOUNT_ID`).
 - `automation-*.yml` — release PR (`develop` → `main`), release tag/notes
-  (`v{YYYY.MM.DD}-{count}`), PR auto-labeling
+  (`v{YYYY.MM.DD}-{count}`)
 
 Workflows use `$GITHUB_OUTPUT`; do **not** reintroduce `::set-output`, which GitHub has removed.
 
 ## Git Workflow
 
 - Branch prefixes: `feature/*`, `bugfix/*`, `hotfix/*`
-- PRs from `feature/*` auto-labeled `enhancement`; `bugfix/*`/`hotfix/*` labeled `bug`
 - Push to `develop` creates a release PR to `main`, or refreshes the list of unreleased PRs in
-  its body. It is opened with `GITHUB_TOKEN`, so it triggers no `pull_request` workflow — fine
-  while CI runs on `push`; switch to a GitHub App token before adding a `pull_request` workflow
+  its body. It is opened with `GITHUB_TOKEN`, so any `pull_request` workflow it starts waits for
+  a manual approval — fine while CI runs on `push`; switch to a GitHub App token before adding a `pull_request` workflow
 - Push to `main` auto-generates a release tag, using the release PR's body as the notes
