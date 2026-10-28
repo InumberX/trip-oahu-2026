@@ -252,6 +252,10 @@ Breakpoints: xs=360, sm=576, md=768, lg=992, xl=1200, xxl=1400
 - `automation-*.yml` — release PR (`develop` → `main`), release tag/notes
   (`v{YYYY.MM.DD}-{count}`), PR auto-labeling
 
+`.github/dependabot.yml` opens a weekly pull request (Mondays, 06:00 JST) raising the GitHub
+Actions to their newest major; `cloudflare/wrangler-action` gets its own, since only a deploy
+exercises it. npm dependencies are not covered.
+
 Workflows use `$GITHUB_OUTPUT`; do **not** reintroduce `::set-output`, which GitHub has removed.
 
 ## Git Workflow
