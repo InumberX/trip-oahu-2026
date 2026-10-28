@@ -258,5 +258,7 @@ Workflows use `$GITHUB_OUTPUT`; do **not** reintroduce `::set-output`, which Git
 
 - Branch prefixes: `feature/*`, `bugfix/*`, `hotfix/*`
 - PRs from `feature/*` auto-labeled `enhancement`; `bugfix/*`/`hotfix/*` labeled `bug`
-- Push to `develop` creates a release PR to `main` (labeled `release`)
-- Push to `main` auto-generates a release tag and notes
+- Push to `develop` creates a release PR to `main`, or refreshes the list of unreleased PRs in
+  its body. It is opened with a GitHub App token (`GHA_APP_ID` variable, `GHA_PRIVATE_PEM`
+  secret) because a PR opened with `GITHUB_TOKEN` triggers no CI
+- Push to `main` auto-generates a release tag, using the release PR's body as the notes
